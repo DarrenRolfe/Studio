@@ -17,25 +17,25 @@ namespace Calculator
         }
     }
 
+    public GetUserEntry(string userentry)
+    {
+        //userentry = Convert.ToString(Console.ReadLine());
+        if (!userentry.All(char.IsDigit))
+        {
+            // not numeric
+            Console.WriteLine($"The value {userentry} is not numeric!");
+        }
+        else
+        {
+            // numeric
+            Console.WriteLine($"The value {userentry} is a numeric value!");
+        }
+    }
+
 
     class Program
     {
         // public List<Calc> allCalcs = new List<Calc>();
-        public void GetUserEntry(string userentry)
-        {
-            //userentry = Convert.ToString(Console.ReadLine());
-            if (!userentry.All(char.IsDigit))
-            {
-                // not numeric
-                Console.WriteLine($"The value {userentry} is not numeric!");
-            }
-            else
-            {
-                // numeric
-                Console.WriteLine($"The value {userentry} is a numeric value!");
-            }
-        }
-
         static void Main(string[] args)
         {
             //String userentry = "";
