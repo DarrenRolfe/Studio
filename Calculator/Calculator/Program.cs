@@ -6,70 +6,29 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    public class Calc
-    {
-        public char CalcOp { get; }
-        public decimal CalcValue { get; }
-        public Calc(decimal calcvalue, char calcop)
-        {
-            this.CalcValue = calcvalue;
-            this.CalcOp = calcop;
-        }
-    }
-
-    public GetUserEntry(string userentry)
-    {
-        //userentry = Convert.ToString(Console.ReadLine());
-        if (!userentry.All(char.IsDigit))
-        {
-            // not numeric
-            Console.WriteLine($"The value {userentry} is not numeric!");
-        }
-        else
-        {
-            // numeric
-            Console.WriteLine($"The value {userentry} is a numeric value!");
-        }
-    }
-
-
     class Program
     {
-        // public List<Calc> allCalcs = new List<Calc>();
         static void Main(string[] args)
         {
-            //String userentry = "";
-            //string UE = "";
+            var CalcNumeric = new CalcProcesses();
+            int CalcCount = 0;
+
             Console.WriteLine("Welcome to the Calculator");
             Console.WriteLine();
 
-            Console.Write("Please enter the first numeric of your calculation: ");
-            UE = Convert.ToString(Console.ReadLine());
-            GetUserEntry(Console.ReadLine());
+            do {
+                CalcCount++;
 
+                Console.Write($"Please enter the {CalcCount} number of your calculation: ");
+                CalcNumeric.GetUserEntry(Convert.ToString(Console.ReadLine()), 1);
 
+                Console.Write("Please enter the operator for your calculation: ");
+                CalcNumeric.GetUserEntry(Convert.ToString(Console.ReadLine()), 2);
+
+            } while((CalcNumeric.CalcResult.Length < 1) && (CalcCount < 5));
+
+            Console.Write("End of Program.");
             Console.ReadKey();
-/*
-            Console.Write("Please enter your calculation here: ");
-            userentry = Convert.ToString(Console.ReadLine());
-            decimal count = 1;
-            decimal result;
-            foreach (var item in userentry)
-            {
-                if (count % 2 == 0)
-                {
-                    if (decimal.TryParse(item, out result))
-                        throw new InvalidOperationException($"Error: [{item}] Numeric value expected.");  // dec
-                } else {
-                    if (item.GetType != char)
-                        throw new InvalidOperationException($"Error: [{item}] Operator character expected."); // not dec
-                }
-                var 
-                count++;
-            }
-
-            List<Calc>
-            */
         }
     }
 }
