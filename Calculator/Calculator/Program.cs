@@ -8,26 +8,32 @@ namespace Calculator
 {
     class Program
     {
+        //public static int firstNumber;
         static void Main(string[] args)
         {
             var CalcNumeric = new CalcProcesses();
             int CalcCount = 0;
 
+     //       var additionValue = CalcNumeric.Addition(1, 2);
+
             Console.WriteLine("Welcome to the Calculator");
             Console.WriteLine();
+            Console.WriteLine("Please enter a number, press enter, then enter an operator. Enter a blank line to resolve.");
+            Console.WriteLine();
 
-            do {
+            do
+            {
                 CalcCount++;
+                decimal CalcOldValue;
+                var isOldNumber = decimal.TryParse(CalcNumeric.CalcReminder, out CalcOldValue);
 
-                Console.Write($"Please enter the {CalcCount} number of your calculation: ");
-                CalcNumeric.GetUserEntry(Convert.ToString(Console.ReadLine()), 1);
+                if ((isOldNumber) && (CalcNumeric.CalcReminder.Length >0))
+                    Console.Write($"Please enter an operator for your calculation: ");
+                else
+                    Console.Write($"Please enter a number for your calculation: ");
+                CalcNumeric.GetUserEntry(Convert.ToString(Console.ReadLine()));
 
-                Console.Write("Please enter the operator for your calculation: ");
-                CalcNumeric.GetUserEntry(Convert.ToString(Console.ReadLine()), 2);
-
-            } while((CalcNumeric.CalcResult.Length < 1) && (CalcCount < 5));
-
-            Console.Write("End of Program.");
+            } while(CalcNumeric.CalcResult < 1);
             Console.ReadKey();
         }
     }

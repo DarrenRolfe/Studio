@@ -8,41 +8,128 @@ namespace Calculator
 {
     class CalcProcesses
     {
+
+        // DoMathStuff(Calculation, CalcNumber, userentry);
+        //             Running Total  Number     Operator
+        public void DoMathStuff(decimal Running, decimal AddMe, string OpMe)
+        {
+            switch (OpMe)
+            {
+                case "+":
+                    Running += AddMe;
+                    Console.WriteLine($" ---> {Calculation} + {AddMe} = {Running}");
+                    break;
+                case "-":
+                    Running -= AddMe;
+                    Console.WriteLine($" ---> {Calculation} - {AddMe} = {Running}");
+                    break;
+                case "*":
+                    Running *= AddMe;
+                    Console.WriteLine($" ---> {Calculation} * {AddMe} = {Running}");
+                    break;
+                case "/":
+                    Running /= AddMe;
+                    Console.WriteLine($" ---> {Calculation} / {AddMe} = {Running}");
+                    break;
+            }
+            Calculation = Running;
+        }
+
+     //   public int Addition(int firstNumber, int SecondNumber)
+     //   {
+     //       return firstNumber + SecondNumber;
+     //   }
+
         public CalcProcesses()
         {
-            this.Calculation = "";
-            this.CalcResult = "";
+            this.CalcReminder = "";
+            this.CalcResult = 0;
+            this.Calculation = 0;
         }
-        public string Calculation { get; set; }
-        public string CalcResult { get; set; }
+        public decimal Calculation { get; set; }
+        public decimal CalcResult { get; set; }
+        public decimal CalcNumber { get; set; }
+        public string CalcReminder { get; set; }
 
-        public void GetUserEntry(string userentry, int entrytype)
+        public void GetUserEntry(string userentry)
         {
             if (userentry.Length == 0)
             {
-                Console.WriteLine($"End of entry - Sum will be performed.");
-                Console.WriteLine($"Entered sum: {Calculation}");
+                Console.WriteLine($"End of entries. Thanks for playing...");
+                if (Calculation == 0)
+                    Calculation++;
                 CalcResult = Calculation;
-            }
-            else if (userentry.All(char.IsDigit))
-            {
-                // numeric - type 1
-                if (entrytype == 1)
-                {
-                    Console.WriteLine($"SUM: {Calculation}{userentry}");
-                    Calculation += userentry;
-                }
-                else { Console.WriteLine($"ERROR: {userentry} is not a valid operator!"); }
             }
             else
             {
-                // not numeric - type 2
-                if (entrytype == 2)
+                decimal goodNumber;
+                decimal CalcOldValue;
+                var isNumber = decimal.TryParse(userentry, out goodNumber);
+                var isOldNumber = decimal.TryParse(CalcReminder, out CalcOldValue);
+
+                if (isNumber)
                 {
-                    Console.WriteLine($"SUM: {Calculation}{userentry}");
-                    Calculation += userentry;
+                    // Valid number
+                    if ((isOldNumber) && (CalcReminder.Length > 0))
+                    {
+                        // Last entry was numeric
+                        Console.WriteLine("Please now enter an operator!");
+                    }
+                    else
+                    {
+                        if (CalcReminder.Length > 0)
+                        {
+                            CalcNumber = goodNumber;
+                            // Do the sum
+                            DoMathStuff(Calculation, CalcNumber, CalcReminder);
+                            //Console.WriteLine($"DoMathStuff: {Calculation} {CalcReminder} {CalcNumber}");
+                        }
+                        else
+                        {
+                            Calculation = goodNumber;
+                        }
+                        CalcReminder = userentry;
+                    }
                 }
-                else { Console.WriteLine($"ERROR: {userentry} is not a valid numeric!"); }
+                else
+                {
+                    // Operator
+                    int setOperator;
+                    switch (userentry)
+                    {
+                        case "+":
+                            setOperator = 1;
+                            break;
+                        case "-":
+                            setOperator = 2;
+                            break;
+                        case "*":
+                            setOperator = 3;
+                            break;
+                        case "/":
+                            setOperator = 4;
+                            break;
+                        default:
+                            Console.WriteLine("Unreconised operator. Please supply +, -, * or / only.");
+                            setOperator = 0;
+                            break;
+                    }
+
+                    if ((!isOldNumber) && (CalcReminder.Length > 0) && (setOperator > 0))
+                    {
+                        // Last entry was operator
+                        Console.WriteLine("Last operator replaced, please now enter a number!");
+                        CalcReminder = userentry;
+                    }
+                    else if ((CalcReminder.Length > 0) && (setOperator != 0))
+                    {
+                        CalcReminder = userentry;
+                    }
+                    else if (CalcReminder.Length < 1)
+                    {
+                        Console.WriteLine("Please enter a number first!");
+                    }
+                }
             }
         }
 
