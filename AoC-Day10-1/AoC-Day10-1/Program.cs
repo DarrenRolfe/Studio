@@ -11,20 +11,29 @@ namespace AoC_Day10_1
         static void Main(string[] args)
         {
             var Puzzle = new AoC_Puzzle();
+
+            //Console.WriteLine($" Populate Arrays: ");
             Puzzle.PopulateArray();
+            //Console.WriteLine();
 
             foreach (var entry in Puzzle.PuzzleInput)
             {
                 // This will repeat for each length in the PuzzleInput
 
-                // Reverse length
-                Puzzle.PuzzlePart = AoC_PullLength(Puzzle.PuzzlePosition,Puzzle.PuzzleLength);
-                // AoC_ReverseLength();
-                // AoC_PushLength();
+                // Collect length into list
+                Puzzle.PuzzleLength = entry.Value;
+                Puzzle.AoC_PullLength(Puzzle.PuzzlePosition, Puzzle.PuzzleLength);
+                //Console.WriteLine(Puzzle.PuzzlePart);
+
+                // Reverse the list order
+                Puzzle.AoC_ReverseLength();
+
+                // Submit new list back into main list
+                Puzzle.AoC_PushLength(Puzzle.PuzzlePosition, Puzzle.PuzzlePart.Count);
 
                 Puzzle.PuzzlePosition += Puzzle.PuzzleLength + Puzzle.PuzzleSkip;
-                while (Puzzle.PuzzlePosition > 255) {
-                    Puzzle.PuzzlePosition -= 255;
+                while (Puzzle.PuzzlePosition > Puzzle.PuzzleArray.Count) {
+                    Puzzle.PuzzlePosition -= Puzzle.PuzzleArray.Count;
                 }
                 Puzzle.PuzzleSkip++;
             }
@@ -32,9 +41,9 @@ namespace AoC_Day10_1
             // Show contents of PuzzleArray
             var output = "";
             var multiply = 1;
-            for (var init = 0; init < 256; init++)
+            for (var init = 0; init < Puzzle.PuzzleArray.Count; init++)
             {
-                var newValue = new AoC_PuzzleArray(init);
+                var newValue = Puzzle.PuzzleArray[init];
                 output += " "+newValue.Value;
 
                 // Multiply first two values
