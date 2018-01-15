@@ -26,5 +26,12 @@ namespace EntityFrameworkExample.Controllers
 
             return View();
         }
+
+        public ActionResult Trial()
+        {
+            ViewBag.Message = "The experimental trial page.";
+
+            return View();
+        }
     }
 }
