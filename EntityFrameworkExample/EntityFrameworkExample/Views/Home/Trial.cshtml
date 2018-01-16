@@ -1,10 +1,48 @@
-﻿@{
-    ViewBag.Title = "Experiemental Trial";
+﻿@model;
+
+@{
+	ViewBag.Title = "Experiemental Trial";
 }
+
+<script type="text/javascript">
+	function random() {
+		var adjective = new Array('quick', 'pleasant', 'successive', 'interim',
+			'optimistic', 'sensitive', 'temporary', 'reminiscent', 'drooly', 'muddy',
+			'maddening', 'ceaseless', 'bawdy', 'earthy', 'european', 'aboard',
+			'innovative', 'broad', 'smelly', 'mad', 'reduced', 'plucky', 'glib', 'liable',
+			'ratty', 'venomous', 'chivalrous', 'wide', 'moral', 'scary');
+		rdm = Math.floor(Math.random() * adjective.length);
+		document.getElementById("adj1").value = adjective[rdm];
+	}
+</script>
+
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    <strong>Item 1:</strong>   HTML contents and stuff<br />
-    <strong>Item 2:</strong>   More stuff, lots of stuff!
-</address>
+<strong>Item 1:</strong>   HTML contents and stuff<br />
+<strong>Item 2:</strong>   More stuff, lots of stuff!
+
+<div class="editor-label">
+	@Html.LabelFor(model => model.adj1)
+	<button type="button" title="Random" id="1" onclick="random()" ></button>
+</div>
+<div class="editor-field">
+	@Html.EditorFor(model => model.adj1)
+	@Html.ValidationMessageFor(model => model.adj1)
+
+	 <!-- Html.TextAreaFor(model => model.adj1) -->
+</div>
+
+
+<!--
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Nullam+cras+dis+aliquet+tristique+sapien,+et+nisl+nec."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Proin+quisque+torquent+class+nulla+natoque+erat,+sollicitudin+velit+a+ullamcorper+ultrices."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Vel+aptent+accumsan+sodales+nascetur+etiam,+laoreet+felis+nisi+diam."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Blandit+eu+consequat+tempus+tempor,+vulputate+enim+ligula."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Eu+posuere+iaculis+venenatis+eleifend+nec,+inceptos+leo+pretium+hendrerit."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Molestie+facilisi+faucibus+laoreet+a+magnis,+interdum+gravida+ad."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Maecenas+convallis+dui+bibendum+tristique,+hendrerit+enim+placerat."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Risus+maecenas+phasellus+aptent+primis+luctus+arcu,+nam+litora+enim+interdum."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Tortor+a+conubia+porta+senectus+hac+molestie,+sagittis+erat+ullamcorper+ultricies."></iframe>
+<br /><iframe height="100" width="100" src="http://bing.com/search?q=Mus+rhoncus+taciti+sociosqu+imperdiet+porttitor,+malesuada+mi+quisque."></iframe>
+-->
